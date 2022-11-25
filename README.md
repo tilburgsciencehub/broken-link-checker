@@ -3,6 +3,8 @@ At Tilburg Science Hub, we have a total of almost 400 pages. A lot of them had b
 
 # Prerequisites
 In order to be able to run the script, you need to install the following libraries:
+- pip install usp
+- pip install bs4
 
 # Installation
 1. Generate your Github API key in Profile Settings.
