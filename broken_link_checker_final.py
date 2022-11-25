@@ -42,8 +42,8 @@ token = os.environ['GIT_TOKEN']
 headers = {"Authorization" : "token {}".format(token)}
 
 #Generate target repositoryURL using Github API
-username = 'thierrylahaije'
-Repositoryname = 'introduction-to-github'
+username = 'tilburgsciencehub'
+Repositoryname = 'broken-link-checker'
 url = "https://api.github.com/repos/{}/{}/issues".format(username,Repositoryname)
 
 #github table setup
