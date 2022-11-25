@@ -8,7 +8,7 @@ In order to be able to run the script, you need to install the following librari
 1. Generate your Github API key in Profile Settings.
 Warning: in order to post issues, make sure to click the possibility to write.
 
-2. Store your API key as an environment variable.
+2. Store your API key as an environment variable called 'GIT_TOKEN'.
 Learn how to Configure Environment Variables.
 
 3. Clone the repository.
