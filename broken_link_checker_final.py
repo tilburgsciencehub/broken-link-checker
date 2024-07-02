@@ -38,7 +38,7 @@ headers = {"Authorization" : "token {}".format(token)}
 
 #Generate target repositoryURL using Github API
 username = 'tilburgsciencehub'
-Repositoryname = 'broken_link_checker'
+Repositoryname = 'broken-link-checker'
 url = "https://api.github.com/repos/{}/{}/issues".format(username,Repositoryname)
 
 #github table setup
