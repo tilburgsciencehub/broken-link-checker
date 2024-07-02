@@ -38,7 +38,7 @@ headers = {"Authorization" : "token {}".format(token)}
 
 #Generate target repositoryURL using Github API
 username = 'tilburgsciencehub'
-Repositoryname = 'website-flask'
+Repositoryname = 'broken_link_checker'
 url = "https://api.github.com/repos/{}/{}/issues".format(username,Repositoryname)
 
 #github table setup
