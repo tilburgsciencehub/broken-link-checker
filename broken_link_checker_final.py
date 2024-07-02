@@ -10,7 +10,7 @@ import os
 # # Lists & Other Necessities
 
 # Domain
-fullDomain = 'https://flask.tilburgsciencehub.com'
+fullDomain = 'https://tilburgsciencehub.com'
 
 #Sitemap listpages
 listPages_Raw = []
