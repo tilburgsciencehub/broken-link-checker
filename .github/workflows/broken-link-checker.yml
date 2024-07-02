@@ -1,17 +1,19 @@
 name: broken-link-checker
+
 on:
   push:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - name: checkout repo content
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # Updated to v3
       - name: setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4  # Updated to v4
         with:
           python-version: 3.8
       - name: Install dependencies
@@ -22,7 +24,6 @@ jobs:
           python -m pip install "pandas"
           python -m pip install "datetime"
           python -m pip install "ultimate-sitemap-parser"
-          
       - name: execute broken link script
         env: 
           GIT_TOKEN: ${{ secrets.SECRET_GIT_TOKEN }}
