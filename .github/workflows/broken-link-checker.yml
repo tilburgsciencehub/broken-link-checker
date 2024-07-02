@@ -1,7 +1,7 @@
 name: broken-link-checker
 on:
   schedule:
-    - cron: '59 23 * * 5'
+    - cron: '30 16 * * 2'
 jobs:
   build:
     runs-on: ubuntu-latest
