@@ -1,9 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 # # Libraries
-
-
 from usp.tree import sitemap_tree_for_homepage
 from bs4 import BeautifulSoup
 import requests
@@ -12,9 +7,10 @@ import json
 from datetime import datetime
 import os
 
-
 # # Lists & Other Necessities
 
+# Domain
+fullDomain = 'https://flask.tilburgsciencehub.com'
 
 #Sitemap listpages
 listPages_Raw = []
@@ -23,7 +19,6 @@ listPages = []
 #Links on pages
 externalLinksListRaw = []
 uniqueExternalLinks = []
-listPages3 = ['https://tilburgsciencehub.com/tutorials/code-like-a-pro/getting-started-with-stata/getting-started-with-stata-overview/']
 
 #broken link list
 brokenLinksList = []
@@ -43,24 +38,20 @@ headers = {"Authorization" : "token {}".format(token)}
 
 #Generate target repositoryURL using Github API
 username = 'tilburgsciencehub'
-Repositoryname = 'broken-link-checker'
+Repositoryname = 'website-flask'
 url = "https://api.github.com/repos/{}/{}/issues".format(username,Repositoryname)
 
 #github table setup
 tablehead = "| URL | Broken Link | Anchor | Code |" + "\n" + "| ------------- | ------------- | ------------- | ------------- |" + "\n"
 
-
 # # Functions
 
-
 #Put all pages from sitemap in listPages_Raw
-def getPagesFromSitemap():
-    fullDomain = 'https://tilburgsciencehub.com'
+def getPagesFromSitemap(fullDomain):
     listPages_Raw.clear()
     tree = sitemap_tree_for_homepage(fullDomain)
     for page in tree.all_pages():
         listPages_Raw.append(page.url)
-
 
 # Go through List Pages Raw output a list of unique pages links
 def getListUniquePages():
@@ -77,7 +68,7 @@ def getListUniquePages():
             listPages.append(page)
 
 #get all links per page and insert url, dest. url & anchor text in externalLinksListRaw
-def ExternalLinkList(listPages):
+def ExternalLinkList(listPages, fullDomain):
     
     externalLinksListRaw.clear()
     
@@ -104,7 +95,7 @@ def ExternalLinkList(listPages):
                     elif link["href"].startswith("/"):
                         
                         linkhrefadjust = link["href"][1:]
-                        domain = 'https://tilburgsciencehub.com/'
+                        domain = fullDomain
                         urlcomp = domain + linkhrefadjust
                         externalLinksListRaw.append([url,urlcomp,link.text])
                     
@@ -264,7 +255,7 @@ def push_issue_git():
         issuebody = 'Today, a total of ' + str(len(df3.index)) + ' link errors have been found. The following links have been found containing errors:' + '\n' + tablecomp
 
         #defining data to push to git issue
-        data = {"title": titleissue, "body": issuebody, "assignee": "thierrylahaije", "labels":["bug"]}
+        data = {"title": titleissue, "body": issuebody, "assignee": "thierrylahaije"}
 
         #Post issue message using requests and json
         requests.post(url,data=json.dumps(data),headers=headers)
@@ -274,15 +265,13 @@ def push_issue_git():
     else:
         pass
 
-
 # # Execute Functions
 
 
-getPagesFromSitemap()
+getPagesFromSitemap(fullDomain)
 getListUniquePages()
-ExternalLinkList(listPages)
+ExternalLinkList(listPages, fullDomain)
 getUniqueExternalLinks(externalLinksListRaw)
 identifyBrokenLinks(uniqueExternalLinks)
 matchBrokenLinks(brokenLinksList,externalLinksListRaw)
 push_issue_git()
-
